@@ -12,3 +12,4 @@ SETUP_SCRIPT/.env
 
 # Misc
 covers/
+SETUP_SCRIPT/.env.example
