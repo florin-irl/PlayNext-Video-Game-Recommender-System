@@ -1,0 +1,14 @@
+# Python venvs, caches
+.venv/
+__pycache__/
+
+# Databases
+*.db
+*.sqlite3
+
+# Secrets
+.env
+SETUP_SCRIPT/.env
+
+# Misc
+covers/
