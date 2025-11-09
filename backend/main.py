@@ -114,3 +114,34 @@ def get_last_added_games(
     sorted_games = [game_map[game_id] for game_id in last_added_game_ids if game_id in game_map]
 
     return sorted_games
+
+@app.get("/users/me/library", response_model=List[schemas.Game])
+def get_user_library(
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(security.get_current_user)
+):
+    """
+    Fetches all games in the current user's library, sorted alphabetically.
+    """
+    # 1. Get all of the user's library entries
+    library_entries = (
+        db.query(models.UserLibrary)
+        .filter(models.UserLibrary.user_id == current_user.id)
+        .all()
+    )
+
+    if not library_entries:
+        return []
+
+    # 2. Extract the game IDs
+    game_ids = [entry.game_id for entry in library_entries]
+
+    # 3. Fetch the full game details for those IDs, sorted by name
+    games = (
+        db.query(models.Game)
+        .filter(models.Game.id.in_(game_ids))
+        .order_by(models.Game.name.asc())
+        .all()
+    )
+    
+    return games

@@ -305,3 +305,36 @@ button:hover {
   height: 100%;
   object-fit: cover;
 }
+
+/* --- My Games Page Styles --- */
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 30px;
+  /* Resetting some global h1 styles for this context */
+  letter-spacing: normal;
+}
+
+.add-game-tile {
+  cursor: pointer;
+  background-color: #2b2b2b;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s ease-in-out;
+  aspect-ratio: 3 / 4; /* Match aspect ratio of game covers */
+}
+
+.add-game-tile:hover {
+  background-color: #3c3c3c;
+}
+
+.add-game-tile span {
+  font-size: 4rem;
+  font-weight: 200;
+  color: #a0a0a0;
+  line-height: 1;
+  padding-bottom: 5px; /* Optical alignment */
+}
