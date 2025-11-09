@@ -425,3 +425,45 @@ button:hover {
 .search-result-item p {
   font-weight: bold;
 }
+
+/* --- Popular Now Page Styles --- */
+
+.page-title .twitch-text {
+  color: #9146ff; /* Twitch's brand purple */
+}
+
+.twitch-subtitle {
+  color: #a0a0a0;
+  margin-top: -30px; /* Pull it closer to the title */
+  margin-bottom: 30px;
+}
+
+.twitch-subtitle strong {
+  color: #a3e635;
+  font-weight: bold;
+}
+
+.popular-game-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.game-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.viewer-dot {
+  width: 12px;
+  height: 12px;
+  background-color: #9146ff;
+  border-radius: 50%;
+}
+
+.viewer-count {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #a0a0a0;
+}

@@ -40,3 +40,8 @@ class InitialLibraryCreate(BaseModel):
 
 class AddGameRequest(BaseModel):
     game_id: int
+
+class PopularGame(BaseModel):
+    name: str
+    cover_url: str
+    viewer_count: str # We'll format this as a string (e.g., "280K") in the backend

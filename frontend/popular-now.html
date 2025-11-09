@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Popular Now - PlayNext</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="main-header">
+      <nav class="main-nav">
+        <a href="home.html" class="logo"
+          >Play<span class="accent">Next</span></a
+        >
+        <ul>
+          <li><a href="my-games.html">My Games</a></li>
+          <li><a href="#">Recommendations</a></li>
+          <li><a href="popular-now.html" class="active">Popular Now</a></li>
+          <li><a href="#">About</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="page-content">
+      <h1 class="page-title">
+        Most-watched games on <span class="twitch-text">Twitch</span> right now
+      </h1>
+      <p class="twitch-subtitle">Data powered by Twitch API - Updated LIVE</p>
+      <div class="games-grid" id="popular-grid">
+        <!-- Popular games will be dynamically inserted here -->
+      </div>
+    </main>
+
+    <script src="popular-now.js"></script>
+  </body>
+</html>
