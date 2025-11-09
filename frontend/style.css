@@ -1,23 +1,30 @@
+/* --- Global Styles & Resets --- */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-html,
-body {
+html {
   height: 100%;
 }
+
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   background-color: #121212; /* A slightly softer black */
   color: #f0f0f0;
+  padding: 20px;
+  min-height: 100%; /* Ensure body can grow */
+}
+
+/* --- Form Container (Login/Register Pages) --- */
+/* This style specifically targets the body on pages that NEED centering */
+body.center-content {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
 }
-/* --- Form Container --- */
+
 .form-container {
   width: 100%;
   max-width: 400px;
@@ -27,6 +34,7 @@ body {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
   text-align: center;
 }
+
 /* --- Logo & Headings --- */
 h1 {
   font-size: 3rem;
@@ -34,26 +42,31 @@ h1 {
   margin-bottom: 10px;
   letter-spacing: 1px;
 }
+
 h1 .accent {
   color: #a3e635; /* Neon Lime Green */
 }
+
 h2 {
   font-size: 1.2rem;
   font-weight: normal;
   color: #a0a0a0;
   margin-bottom: 40px;
 }
+
 /* --- Input Fields & Labels --- */
 .input-group {
   margin-bottom: 20px;
   text-align: left;
 }
+
 label {
   display: block;
   margin-bottom: 8px;
   font-weight: bold;
   color: #a0a0a0;
 }
+
 input[type="text"],
 input[type="email"],
 input[type="password"] {
@@ -66,18 +79,20 @@ input[type="password"] {
   color: #f0f0f0;
   transition: all 0.3s ease;
 }
+
 input:focus {
   outline: none;
   border-color: #a3e635;
   box-shadow: 0 0 8px rgba(163, 230, 53, 0.4);
 }
 
+/* --- Buttons --- */
 button {
   width: 100%;
   padding: 12px;
   font-size: 1.1rem;
   font-weight: bold;
-  color: #121212;
+  color: #121212; /* Dark text for contrast */
   background-color: #a3e635;
   border: none;
   border-radius: 5px;
@@ -85,19 +100,100 @@ button {
   transition: background-color 0.3s ease;
   margin-top: 10px;
 }
+
 button:hover {
-  background-color: #baff49;
+  background-color: #baff49; /* Slightly brighter on hover */
 }
 
+/* --- Helper Text & Links --- */
 .switch-form-text {
   margin-top: 30px;
   color: #a0a0a0;
 }
+
 .switch-form-text a {
   color: #a3e635;
   text-decoration: none;
   font-weight: bold;
 }
+
 .switch-form-text a:hover {
   text-decoration: underline;
+}
+
+/* --- Onboarding Page Styles (REVISED & FINAL) --- */
+.onboarding-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto; /* Center the container */
+  text-align: center;
+}
+
+.header {
+  background-color: #1c1c1c;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px; /* Correctly creates space now */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  /* No longer sticky */
+}
+
+.header h1 {
+  font-size: 2rem;
+  color: #f0f0f0;
+}
+
+.header p {
+  font-size: 1.1rem;
+  color: #a0a0a0;
+  margin-top: 10px;
+}
+
+#done-btn {
+  width: auto; /* Override full width for this specific button */
+  padding: 10px 30px;
+  margin-top: 20px;
+  font-size: 1rem;
+}
+
+#done-btn:disabled {
+  background-color: #555;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(180px, 1fr)
+  ); /* Responsive grid */
+  gap: 20px;
+}
+
+.game-cover {
+  position: relative;
+  cursor: pointer;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 3px solid transparent;
+  transition: all 0.2s ease-in-out;
+}
+
+.game-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.game-cover:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(163, 230, 53, 0.5);
+}
+
+.game-cover.selected {
+  border-color: #a3e635;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(163, 230, 53, 0.8);
 }

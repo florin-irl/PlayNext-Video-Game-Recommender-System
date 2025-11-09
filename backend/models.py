@@ -17,3 +17,10 @@ class Game(Base):
     name = Column(String, nullable=False)
     cover_url = Column(String)
     popularity = Column(Integer)
+
+class UserLibrary(Base):
+    __tablename__ = "user_library"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer)
+    game_id = Column(Integer)
