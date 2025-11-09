@@ -11,20 +11,21 @@ html {
 
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  background-color: #121212; /* A slightly softer black */
+  background-color: #121212;
   color: #f0f0f0;
-  padding: 20px;
-  min-height: 100%; /* Ensure body can grow */
+  min-height: 100%;
 }
 
-/* --- Form Container (Login/Register Pages) --- */
-/* This style specifically targets the body on pages that NEED centering */
+/* --- Centering Utility for Form Pages --- */
+/* Add class="center-content" to the <body> of login.html and register.html */
 body.center-content {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 20px;
 }
 
+/* --- Form Container (Login/Register) --- */
 .form-container {
   width: 100%;
   max-width: 400px;
@@ -35,7 +36,7 @@ body.center-content {
   text-align: center;
 }
 
-/* --- Logo & Headings --- */
+/* --- General Headings & Logo --- */
 h1 {
   font-size: 3rem;
   font-weight: bold;
@@ -54,7 +55,7 @@ h2 {
   margin-bottom: 40px;
 }
 
-/* --- Input Fields & Labels --- */
+/* --- Form Input Fields & Labels --- */
 .input-group {
   margin-bottom: 20px;
   text-align: left;
@@ -86,13 +87,13 @@ input:focus {
   box-shadow: 0 0 8px rgba(163, 230, 53, 0.4);
 }
 
-/* --- Buttons --- */
+/* --- General Buttons --- */
 button {
   width: 100%;
   padding: 12px;
   font-size: 1.1rem;
   font-weight: bold;
-  color: #121212; /* Dark text for contrast */
+  color: #121212;
   background-color: #a3e635;
   border: none;
   border-radius: 5px;
@@ -102,10 +103,10 @@ button {
 }
 
 button:hover {
-  background-color: #baff49; /* Slightly brighter on hover */
+  background-color: #baff49;
 }
 
-/* --- Helper Text & Links --- */
+/* --- Form Helper Links --- */
 .switch-form-text {
   margin-top: 30px;
   color: #a0a0a0;
@@ -121,21 +122,21 @@ button:hover {
   text-decoration: underline;
 }
 
-/* --- Onboarding Page Styles (REVISED & FINAL) --- */
+/* --- Onboarding Page Styles --- */
 .onboarding-container {
   width: 100%;
   max-width: 1200px;
-  margin: 0 auto; /* Center the container */
+  margin: 40px auto; /* Center with space on top/bottom */
   text-align: center;
 }
 
 .header {
+  /* This is the header for the onboarding page */
   background-color: #1c1c1c;
   padding: 20px;
   border-radius: 8px;
-  margin-bottom: 30px; /* Correctly creates space now */
+  margin-bottom: 30px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-  /* No longer sticky */
 }
 
 .header h1 {
@@ -150,7 +151,7 @@ button:hover {
 }
 
 #done-btn {
-  width: auto; /* Override full width for this specific button */
+  width: auto; /* Override full width */
   padding: 10px 30px;
   margin-top: 20px;
   font-size: 1rem;
@@ -164,10 +165,7 @@ button:hover {
 
 .games-grid {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(180px, 1fr)
-  ); /* Responsive grid */
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 20px;
 }
 
@@ -196,4 +194,61 @@ button:hover {
   border-color: #a3e635;
   transform: scale(1.05);
   box-shadow: 0 0 15px rgba(163, 230, 53, 0.8);
+}
+
+/* --- Main Application Header Styles (Homepage, etc.) --- */
+.main-header {
+  width: 100%;
+  padding: 15px 5%;
+  background-color: rgba(28, 28, 28, 0.85);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #2b2b2b;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.main-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: 800;
+  text-decoration: none;
+  color: #f0f0f0;
+}
+
+.main-nav ul {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 35px;
+}
+
+.main-nav ul li a {
+  color: #a0a0a0;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.main-nav ul li a:hover {
+  color: #ffffff;
+}
+
+.main-nav ul li a.active {
+  color: #a3e635;
+}
+
+/* --- Main Page Content Placeholder --- */
+.page-content {
+  padding: 40px 5%;
+  max-width: 1400px;
+  margin: 0 auto;
 }
