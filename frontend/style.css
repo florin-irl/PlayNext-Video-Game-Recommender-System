@@ -338,3 +338,90 @@ button:hover {
   line-height: 1;
   padding-bottom: 5px; /* Optical alignment */
 }
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+  /* Hidden by default */
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 0.3s, opacity 0.3s ease-in-out;
+}
+
+.modal-overlay.visible {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.modal-content {
+  background-color: #1c1c1c;
+  padding: 30px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 600px;
+  position: relative;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 2rem;
+  color: #a0a0a0;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.modal-close:hover {
+  color: #fff;
+}
+
+.modal-content h2 {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+#game-search-input {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.search-results-list {
+  max-height: 40vh;
+  overflow-y: auto;
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.search-result-item:hover {
+  background-color: #2b2b2b;
+}
+
+.search-result-item img {
+  width: 45px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 3px;
+  margin-right: 15px;
+}
+
+.search-result-item p {
+  font-weight: bold;
+}

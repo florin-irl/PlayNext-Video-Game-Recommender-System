@@ -145,3 +145,55 @@ def get_user_library(
     )
     
     return games
+
+@app.get("/games/search", response_model=List[schemas.Game])
+def search_games(
+    q: str, # The search query parameter
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(security.get_current_user)
+):
+    """ Searches for games in the database by name. """
+    if not q or len(q) < 3:
+        # Don't search for very short strings to avoid too many results
+        return []
+    
+    search_term = f"%{q}%"
+    found_games = (
+        db.query(models.Game)
+        .filter(models.Game.name.ilike(search_term)) # ilike is case-insensitive
+        .limit(10) # Return a max of 10 results
+        .all()
+    )
+    return found_games
+
+
+@app.post("/users/me/library", response_model=schemas.Game)
+def add_game_to_library(
+    request: schemas.AddGameRequest,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(security.get_current_user)
+):
+    """ Adds a single game to the current user's library. """
+    # 1. Check if the game exists in the main games table
+    game_to_add = db.query(models.Game).filter(models.Game.id == request.game_id).first()
+    if not game_to_add:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Game not found")
+
+    # 2. Check if the user already has this game in their library
+    existing_entry = (
+        db.query(models.UserLibrary)
+        .filter(
+            models.UserLibrary.user_id == current_user.id,
+            models.UserLibrary.game_id == request.game_id
+        )
+        .first()
+    )
+    if existing_entry:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Game already in library")
+
+    # 3. Add the game to the library
+    new_library_entry = models.UserLibrary(user_id=current_user.id, game_id=request.game_id)
+    db.add(new_library_entry)
+    db.commit()
+
+    return game_to_add

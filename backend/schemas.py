@@ -37,3 +37,6 @@ class TokenData(BaseModel):
 
 class InitialLibraryCreate(BaseModel):
     game_ids: List[int]
+
+class AddGameRequest(BaseModel):
+    game_id: int
