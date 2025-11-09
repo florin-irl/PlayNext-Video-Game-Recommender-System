@@ -1,5 +1,6 @@
-from sqlalchemy import Column, Integer, String, Text, Boolean
+from sqlalchemy import Column, Integer, String, Text, Boolean, DateTime, ForeignKey
 from .database import Base
+from sqlalchemy.sql import func
 
 class User(Base):
     __tablename__ = "users"
@@ -24,3 +25,5 @@ class UserLibrary(Base):
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer)
     game_id = Column(Integer)
+    added_at = Column(DateTime(timezone=True), server_default=func.now())
+

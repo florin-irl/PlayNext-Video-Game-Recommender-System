@@ -22,9 +22,22 @@
     </header>
 
     <!-- The main content for each page will go inside this tag later -->
-    <main class="page-content">
-      <!-- For now, this is empty -->
+    <!-- REPLACE THE OLD MAIN TAG WITH THIS -->
+    <main class="page-content hero-container">
+      <div class="hero-content">
+        <h1 id="welcome-message">Welcome back!</h1>
+        <p>Played something new lately?</p>
+        <button class="hero-button">Add Game</button>
+      </div>
+
+      <div class="last-added-container">
+        <h2>Last Games Added To Collection</h2>
+        <div class="last-added-grid" id="last-added-grid">
+          <!-- JavaScript will insert game covers here -->
+        </div>
+      </div>
     </main>
+    <script src="home.js"></script>
 
     <!-- We don't need home.js for this step, so it has been removed -->
   </body>

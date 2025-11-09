@@ -14,10 +14,11 @@ body {
   background-color: #121212;
   color: #f0f0f0;
   min-height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 /* --- Centering Utility for Form Pages --- */
-/* Add class="center-content" to the <body> of login.html and register.html */
 body.center-content {
   display: flex;
   justify-content: center;
@@ -45,7 +46,7 @@ h1 {
 }
 
 h1 .accent {
-  color: #a3e635; /* Neon Lime Green */
+  color: #a3e635;
 }
 
 h2 {
@@ -60,14 +61,12 @@ h2 {
   margin-bottom: 20px;
   text-align: left;
 }
-
 label {
   display: block;
   margin-bottom: 8px;
   font-weight: bold;
   color: #a0a0a0;
 }
-
 input[type="text"],
 input[type="email"],
 input[type="password"] {
@@ -80,14 +79,11 @@ input[type="password"] {
   color: #f0f0f0;
   transition: all 0.3s ease;
 }
-
 input:focus {
   outline: none;
   border-color: #a3e635;
   box-shadow: 0 0 8px rgba(163, 230, 53, 0.4);
 }
-
-/* --- General Buttons --- */
 button {
   width: 100%;
   padding: 12px;
@@ -101,23 +97,18 @@ button {
   transition: background-color 0.3s ease;
   margin-top: 10px;
 }
-
 button:hover {
   background-color: #baff49;
 }
-
-/* --- Form Helper Links --- */
 .switch-form-text {
   margin-top: 30px;
   color: #a0a0a0;
 }
-
 .switch-form-text a {
   color: #a3e635;
   text-decoration: none;
   font-weight: bold;
 }
-
 .switch-form-text a:hover {
   text-decoration: underline;
 }
@@ -126,49 +117,42 @@ button:hover {
 .onboarding-container {
   width: 100%;
   max-width: 1200px;
-  margin: 40px auto; /* Center with space on top/bottom */
+  margin: 40px auto;
   text-align: center;
 }
-
 .header {
-  /* This is the header for the onboarding page */
+  /* Onboarding header */
   background-color: #1c1c1c;
   padding: 20px;
   border-radius: 8px;
   margin-bottom: 30px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
-
 .header h1 {
   font-size: 2rem;
   color: #f0f0f0;
 }
-
 .header p {
   font-size: 1.1rem;
   color: #a0a0a0;
   margin-top: 10px;
 }
-
 #done-btn {
-  width: auto; /* Override full width */
+  width: auto;
   padding: 10px 30px;
   margin-top: 20px;
   font-size: 1rem;
 }
-
 #done-btn:disabled {
   background-color: #555;
   color: #999;
   cursor: not-allowed;
 }
-
 .games-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 20px;
 }
-
 .game-cover {
   position: relative;
   cursor: pointer;
@@ -177,26 +161,23 @@ button:hover {
   border: 3px solid transparent;
   transition: all 0.2s ease-in-out;
 }
-
 .game-cover img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
-
 .game-cover:hover {
   transform: scale(1.05);
   box-shadow: 0 0 15px rgba(163, 230, 53, 0.5);
 }
-
 .game-cover.selected {
   border-color: #a3e635;
   transform: scale(1.05);
   box-shadow: 0 0 15px rgba(163, 230, 53, 0.8);
 }
 
-/* --- Main Application Header Styles (Homepage, etc.) --- */
+/* --- Main Application Header Styles --- */
 .main-header {
   width: 100%;
   padding: 15px 5%;
@@ -207,7 +188,6 @@ button:hover {
   top: 0;
   z-index: 100;
 }
-
 .main-nav {
   display: flex;
   justify-content: space-between;
@@ -215,21 +195,21 @@ button:hover {
   max-width: 1400px;
   margin: 0 auto;
 }
-
 .logo {
   font-size: 1.8rem;
   font-weight: 800;
   text-decoration: none;
   color: #f0f0f0;
 }
-
+.logo .accent {
+  color: #a3e635;
+}
 .main-nav ul {
   list-style: none;
   display: flex;
   align-items: center;
   gap: 35px;
 }
-
 .main-nav ul li a {
   color: #a0a0a0;
   text-decoration: none;
@@ -237,18 +217,91 @@ button:hover {
   font-size: 1rem;
   transition: color 0.3s ease;
 }
-
 .main-nav ul li a:hover {
   color: #ffffff;
 }
-
 .main-nav ul li a.active {
   color: #a3e635;
 }
 
-/* --- Main Page Content Placeholder --- */
+/* --- Homepage & General Page Layout --- */
 .page-content {
-  padding: 40px 5%;
+  flex-grow: 1;
+  width: 100%;
   max-width: 1400px;
   margin: 0 auto;
+  padding: 40px 5%;
+}
+
+.hero-container {
+  padding: 0; /* Remove padding for full-width hero */
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-content {
+  text-align: center;
+}
+
+.hero-content h1 {
+  font-size: 4rem;
+  font-weight: 900;
+  text-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+}
+
+.hero-content p {
+  font-size: 1.5rem;
+  color: #a3e635;
+  margin-top: 10px;
+  margin-bottom: 30px;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.hero-button {
+  width: auto;
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  border-radius: 50px;
+}
+
+.last-added-container {
+  position: absolute;
+  bottom: 40px;
+  right: 5%;
+  text-align: right;
+}
+
+.last-added-container h2 {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #a0a0a0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+}
+
+.last-added-grid {
+  display: flex;
+  gap: 15px;
+}
+
+.last-added-grid .game-cover-sm {
+  width: 150px;
+  aspect-ratio: 3 / 4;
+  border-radius: 6px;
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.last-added-grid .game-cover-sm:hover {
+  transform: translateY(-5px); /* Changed to a lift effect */
+}
+
+.last-added-grid .game-cover-sm img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }

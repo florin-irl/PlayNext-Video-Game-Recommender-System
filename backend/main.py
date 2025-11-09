@@ -80,3 +80,37 @@ def initialize_user_library(
     db.add(current_user)
     db.commit()
     return
+
+@app.get("/users/me/library/last-added", response_model=List[schemas.Game])
+def get_last_added_games(
+    limit: int = 3,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(security.get_current_user)
+):
+    """
+    Fetches the last N games added to the current user's library.
+    """
+    # 1. Get the last 'limit' entries from user_library, sorted by when they were added
+    last_added_entries = (
+        db.query(models.UserLibrary)
+        .filter(models.UserLibrary.user_id == current_user.id)
+        .order_by(models.UserLibrary.added_at.desc())
+        .limit(limit)
+        .all()
+    )
+
+    if not last_added_entries:
+        return []
+
+    # 2. Extract just the game IDs from those entries
+    last_added_game_ids = [entry.game_id for entry in last_added_entries]
+
+    # 3. Fetch the full game details for those IDs from the 'games' table
+    games = db.query(models.Game).filter(models.Game.id.in_(last_added_game_ids)).all()
+    
+    # 4. We need to preserve the 'added_at' order, which the 'in_' query doesn't
+    #    So, we re-sort the results based on the original ordered list of IDs.
+    game_map = {game.id: game for game in games}
+    sorted_games = [game_map[game_id] for game_id in last_added_game_ids if game_id in game_map]
+
+    return sorted_games
