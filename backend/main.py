@@ -1,4 +1,6 @@
 import requests
+import pickle
+import os
 from typing import List
 
 from fastapi import FastAPI, Depends, HTTPException, status
@@ -14,6 +16,32 @@ from .database import init_db, get_db
 init_db()
 
 app = FastAPI()
+
+# Construct absolute paths to the model files
+BACKEND_ROOT = os.path.dirname(__file__) # This gets the 'backend/' directory path
+SIMILARITY_MATRIX_PATH = os.path.join(BACKEND_ROOT, 'similarity_matrix.pkl')
+GAME_INDICES_PATH = os.path.join(BACKEND_ROOT, 'game_indices.pkl')
+GAME_LIST_PATH = os.path.join(BACKEND_ROOT, 'game_list.pkl')
+
+
+# Load the files into global variables
+try:
+    with open(SIMILARITY_MATRIX_PATH, 'rb') as f:
+        similarity_matrix = pickle.load(f)
+    with open(GAME_INDICES_PATH, 'rb') as f:
+        game_indices = pickle.load(f)
+    with open(GAME_LIST_PATH, 'rb') as f:
+        game_list = pickle.load(f)
+
+    index_to_game_id = {v: k for k, v in game_indices.items()}
+
+    print("Recommender models loaded successfully.")
+except FileNotFoundError:
+    print("WARNING: Recommender model files not found. Run 'python backend/train_recommender.py' to generate them.")
+    similarity_matrix = None
+    game_indices = None
+    game_list = None
+    index_to_game_id = None
 
 # Define allowed origins for CORS
 origins = ["http://127.0.0.1:5500", "http://localhost:5500"]
@@ -166,3 +194,54 @@ def get_popular_games(limit: int = 10, current_user: models.User = Depends(secur
         viewer_count_str = f"{round(viewers / 1000)}K viewers" if viewers >= 1000 else f"{viewers} viewers"
         popular_games.append({"name": game["name"], "cover_url": cover_url, "viewer_count": viewer_count_str})
     return popular_games
+
+
+@app.get("/recommendations/{game_id}", response_model=List[schemas.Game])
+def get_recommendations(
+        game_id: int,
+        db: Session = Depends(get_db),
+        current_user: models.User = Depends(security.get_current_user)
+):
+    """
+    Returns content-based recommendations for a given game ID.
+    """
+    # Check if the models were loaded correctly
+    if similarity_matrix is None or game_indices is None:
+        raise HTTPException(
+            status_code=503,  # Service Unavailable
+            detail="Recommender model is not available."
+        )
+
+    # Check if the requested game_id is in our model
+    if game_id not in game_indices:
+        raise HTTPException(
+            status_code=404,
+            detail="Game not found in the recommender model."
+        )
+
+    # 1. Get the index of the game that matches the ID
+    idx = game_indices[game_id]
+
+    # 2. Get the pairwise similarity scores of all games with that game
+    sim_scores = list(enumerate(similarity_matrix[idx]))
+
+    # 3. Sort the games based on the similarity scores in descending order
+    sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
+
+    # 4. Get the scores of the 10 most similar games (index 0 is the game itself)
+    sim_scores = sim_scores[1:11]
+
+    # 5. Get the game indices from the sorted scores
+    recommended_game_indices = [i[0] for i in sim_scores]
+
+    # 6. Get the game IDs from the indices
+    recommended_game_ids = [index_to_game_id[i] for i in recommended_game_indices]
+
+    # 7. Fetch the full game details from the main database
+    recommended_games = db.query(models.Game).filter(models.Game.id.in_(recommended_game_ids)).all()
+
+    # 8. Re-sort the final list to match the recommendation order
+    game_map = {game.id: game for game in recommended_games}
+    sorted_recommendations = [game_map[gid] for gid in recommended_game_ids if gid in game_map]
+
+    return sorted_recommendations

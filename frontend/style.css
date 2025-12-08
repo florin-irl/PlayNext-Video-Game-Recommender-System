@@ -467,3 +467,43 @@ button:hover {
   font-weight: bold;
   color: #a0a0a0;
 }
+
+.recommendation-row {
+  margin-bottom: 40px;
+}
+
+.recommendation-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.recommendation-title .rec-seed-game {
+  color: #a3e635; /* Neon green to highlight the game */
+  font-style: italic;
+}
+
+.games-carousel {
+  display: flex;
+  overflow-x: auto; /* Enables horizontal scrolling */
+  overflow-y: hidden;
+  gap: 20px;
+  padding-bottom: 20px; /* Space for the scrollbar */
+  /* Custom scrollbar for a cleaner look */
+  scrollbar-width: thin;
+  scrollbar-color: #555 #2b2b2b;
+}
+
+.games-carousel::-webkit-scrollbar {
+  height: 8px;
+}
+
+.games-carousel::-webkit-scrollbar-track {
+  background: #2b2b2b;
+  border-radius: 4px;
+}
+
+.games-carousel::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 4px;
+}
