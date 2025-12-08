@@ -485,11 +485,11 @@ button:hover {
 
 .games-carousel {
   display: flex;
-  overflow-x: auto; /* Enables horizontal scrolling */
-  overflow-y: hidden;
+  overflow-x: auto; /* Keep horizontal scrolling */
+  overflow-y: visible; /* --- FIX: Allow content to be visible on the Y-axis --- */
   gap: 20px;
-  padding-bottom: 20px; /* Space for the scrollbar */
-  /* Custom scrollbar for a cleaner look */
+  padding: 10px 20px 20px 20px; /* --- FIX: Add padding on all sides for the hover effect --- */
+  /* Custom scrollbar styles... */
   scrollbar-width: thin;
   scrollbar-color: #555 #2b2b2b;
 }
@@ -506,4 +506,9 @@ button:hover {
 .games-carousel::-webkit-scrollbar-thumb {
   background-color: #555;
   border-radius: 4px;
+}
+
+.games-carousel .game-cover {
+  width: 210px; /* Increase the width of covers just in the carousel */
+  flex-shrink: 0; /* Prevents the items from shrinking if the container is too small */
 }
