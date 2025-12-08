@@ -5,6 +5,7 @@ class Game(BaseModel):
     id: int
     name: str
     cover_url: str | None = None
+    summary: str | None = None
     
     class Config:
         orm_mode = True

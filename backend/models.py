@@ -18,6 +18,7 @@ class Game(Base):
     name = Column(String, nullable=False)
     cover_url = Column(String)
     popularity = Column(Integer)
+    summary = Column(String)
 
 class UserLibrary(Base):
     __tablename__ = "user_library"

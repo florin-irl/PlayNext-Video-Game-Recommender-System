@@ -245,3 +245,15 @@ def get_recommendations(
     sorted_recommendations = [game_map[gid] for gid in recommended_game_ids if gid in game_map]
 
     return sorted_recommendations
+
+@app.get("/games/{game_id}", response_model=schemas.Game)
+def get_game_details(
+    game_id: int,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(security.get_current_user)
+):
+    """ Fetches the details for a single game by its ID. """
+    game = db.query(models.Game).filter(models.Game.id == game_id).first()
+    if not game:
+        raise HTTPException(status_code=404, detail="Game not found")
+    return game

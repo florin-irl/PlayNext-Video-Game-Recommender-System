@@ -512,3 +512,50 @@ button:hover {
   width: 210px; /* Increase the width of covers just in the carousel */
   flex-shrink: 0; /* Prevents the items from shrinking if the container is too small */
 }
+
+.modal-content.modal-lg {
+  max-width: 800px; /* A wider modal for more content */
+}
+
+.game-details-content {
+  display: flex;
+  gap: 30px;
+}
+
+.details-cover {
+  width: 250px;
+  flex-shrink: 0; /* Prevent the image from shrinking */
+  aspect-ratio: 3 / 4;
+}
+
+.details-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.details-info {
+  text-align: left;
+}
+
+.details-info h2 {
+  /* Overriding global h2 styles */
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+.details-info p {
+  color: #b0b0b0;
+  line-height: 1.6;
+  max-height: 250px; /* Limit summary height */
+  overflow-y: auto; /* Add scroll if summary is long */
+  padding-right: 15px; /* Space for scrollbar */
+}
+
+.details-info .add-to-library-btn {
+  width: auto; /* Override global button width */
+  padding: 12px 30px;
+  margin-top: 30px;
+}
