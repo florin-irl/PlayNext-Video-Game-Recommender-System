@@ -13,3 +13,9 @@ SETUP_SCRIPT/.env
 # Misc
 covers/
 SETUP_SCRIPT/.env.example
+
+# Training items and similarity matrix
+.pkl
+backend/similarity_matrix.pkl
+backend/game_indices.pkl
+backend/game_list.pkl
