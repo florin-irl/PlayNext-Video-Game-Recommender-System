@@ -1,30 +1,33 @@
 const API_BASE_URL = "http://127.0.0.1:8000";
 const accessToken = localStorage.getItem("accessToken");
 
-// --- MODIFICATION: Declare variables that will hold the modal elements ---
-let detailsModal;
-let detailsModalContent;
-let detailsModalCloseBtn;
+let detailsModal, detailsModalContent, detailsModalCloseBtn;
 
-// --- Main execution ---
 document.addEventListener("DOMContentLoaded", () => {
   if (!accessToken) {
     window.location.href = "login.html";
     return;
   }
 
-  // --- MODIFICATION: Find the modal elements *after* the DOM is loaded ---
   detailsModal = document.getElementById("game-details-modal");
   detailsModalContent = document.getElementById("game-details-content");
   detailsModalCloseBtn = document.getElementById("details-modal-close-btn");
 
-  // Now that we're sure the elements exist, we can set them up
-  fetchAndRenderRecommendations();
+  // Attach event listener to the new refresh button
+  const refreshBtn = document.getElementById("refresh-recs-btn");
+  if (refreshBtn) {
+    refreshBtn.addEventListener("click", handleRefreshRecommendations);
+  }
+
+  // Initial page load uses last added games
+  fetchInitialRecommendations();
   setupDetailsModal();
 });
 
-// --- API Calls ---
-async function fetchAndRenderRecommendations() {
+// --- Main Logic ---
+
+// Fetches recommendations based on the LAST 3 ADDED games
+async function fetchInitialRecommendations() {
   const container = document.getElementById("recommendations-container");
   container.innerHTML =
     '<p style="color: #a0a0a0;">Generating your recommendations...</p>';
@@ -45,38 +48,70 @@ async function fetchAndRenderRecommendations() {
       return;
     }
 
-    const recommendationPromises = seedGames.map((game) =>
-      fetch(`${API_BASE_URL}/recommendations/${game.id}`, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      }).then((res) => {
-        if (!res.ok) return [];
-        return res.json();
-      })
-    );
-    const recommendationsByGame = await Promise.all(recommendationPromises);
-    renderAllRows(seedGames, recommendationsByGame);
+    await generateAndRenderRecommendations(seedGames);
   } catch (error) {
-    console.error(error);
-    container.innerHTML =
-      '<p style="color: #ff6b6b;">Failed to load recommendations.</p>';
+    handleFetchError(error);
   }
 }
 
-// --- DOM Rendering ---
+// NEW: Fetches recommendations based on 3 RANDOM games from the library
+async function handleRefreshRecommendations() {
+  const container = document.getElementById("recommendations-container");
+  container.innerHTML =
+    '<p style="color: #a0a0a0;">Finding new recommendations...</p>';
+  try {
+    // Step 1: Get the user's ENTIRE library
+    const fullLibraryResponse = await fetch(
+      `${API_BASE_URL}/users/me/library`,
+      {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }
+    );
+    if (!fullLibraryResponse.ok)
+      throw new Error("Could not fetch your library.");
+    let fullLibrary = await fullLibraryResponse.json();
+
+    if (fullLibrary.length === 0) {
+      container.innerHTML =
+        '<p style="color: #a0a0a0;">Your library is empty. Cannot generate new recommendations.</p>';
+      return;
+    }
+
+    // Step 2: Shuffle the library and pick up to 3 random games
+    const shuffled = fullLibrary.sort(() => 0.5 - Math.random());
+    const randomSeedGames = shuffled.slice(0, 3);
+
+    // Step 3: Generate and render recommendations for these random games
+    await generateAndRenderRecommendations(randomSeedGames);
+  } catch (error) {
+    handleFetchError(error);
+  }
+}
+
+// REUSABLE: Generic function to generate and render recommendations for a given list of seed games
+async function generateAndRenderRecommendations(seedGames) {
+  const recommendationPromises = seedGames.map((game) =>
+    fetch(`${API_BASE_URL}/recommendations/${game.id}`, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    }).then((res) => (res.ok ? res.json() : []))
+  );
+  const recommendationsByGame = await Promise.all(recommendationPromises);
+  renderAllRows(seedGames, recommendationsByGame);
+}
+
+// --- Helper & Rendering Functions ---
+
 function renderAllRows(seedGames, recommendationsByGame) {
   const container = document.getElementById("recommendations-container");
   container.innerHTML = "";
-
   seedGames.forEach((seedGame, index) => {
     const recommendations = recommendationsByGame[index];
     if (!recommendations || recommendations.length === 0) return;
-
     const rowDiv = document.createElement("div");
     rowDiv.className = "recommendation-row";
     rowDiv.innerHTML = `<h2 class="recommendation-title">Because you played <span class="rec-seed-game">${seedGame.name}</span></h2>`;
     const carouselDiv = document.createElement("div");
     carouselDiv.className = "games-carousel";
-
     recommendations.forEach((recGame) => {
       const coverDiv = document.createElement("div");
       coverDiv.className = "game-cover";
@@ -90,10 +125,19 @@ function renderAllRows(seedGames, recommendationsByGame) {
       );
       carouselDiv.appendChild(coverDiv);
     });
-
     rowDiv.appendChild(carouselDiv);
     container.appendChild(rowDiv);
   });
+}
+
+function handleFetchError(error) {
+  console.error(error);
+  const container = document.getElementById("recommendations-container");
+  container.innerHTML =
+    '<p style="color: #ff6b6b;">Failed to load recommendations.</p>';
+  if (error.message.includes("401")) {
+    window.location.href = "login.html";
+  }
 }
 
 // --- Details Modal Logic ---

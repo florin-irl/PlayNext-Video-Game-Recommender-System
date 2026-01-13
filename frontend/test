@@ -1,0 +1,13 @@
+# Pseudocod pentru endpoint-ul API
+function get_recommendations(game_id, similarity_matrix, game_indices):
+    # 1. Găsește indexul jocului în matrice
+    idx = game_indices[game_id]
+
+    # 2. Obține scorurile de similaritate pentru acel joc
+    sim_scores = similarity_matrix[idx]
+
+    # 3. Sortează jocurile după scorul de similaritate
+    sorted_games = sort_by_score(sim_scores)
+
+    # 4. Returnează top 10 jocuri (excluzând jocul sursă)
+    return sorted_games[1:11]

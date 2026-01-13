@@ -56,16 +56,6 @@ function renderPopularGrid(games) {
     const infoDiv = document.createElement("div");
     infoDiv.className = "game-info";
 
-    const dot = document.createElement("span");
-    dot.className = "viewer-dot";
-
-    const count = document.createElement("p");
-    count.className = "viewer-count";
-    count.textContent = game.viewer_count;
-
-    infoDiv.appendChild(dot);
-    infoDiv.appendChild(count);
-
     card.appendChild(coverDiv);
     card.appendChild(infoDiv);
 

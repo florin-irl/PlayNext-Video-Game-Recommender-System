@@ -24,7 +24,23 @@
     </header>
 
     <main class="page-content">
-      <h1 class="page-title">Recommendations for You</h1>
+      <div class="page-header">
+        <h1 class="page-title">Recommendations for You</h1>
+        <button id="refresh-recs-btn" title="Get New Recommendations">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="icon"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M4.755 10.059a7.5 7.5 0 0112.548-3.364l1.903 1.903h-4.518a.75.75 0 00-.75.75v4.518l1.903-1.903a5.997 5.997 0 00-9.982 2.624.75.75 0 11-1.423-.434A7.5 7.5 0 014.755 10.059zm14.49 3.891a7.5 7.5 0 01-12.548 3.364l-1.903-1.903h4.518a.75.75 0 00.75-.75v-4.518l-1.903 1.903a5.997 5.997 0 009.982-2.624.75.75 0 111.423.434A7.5 7.5 0 0119.245 13.95z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </button>
+      </div>
       <div id="recommendations-container">
         <!-- Recommendation rows will be dynamically inserted here -->
       </div>
