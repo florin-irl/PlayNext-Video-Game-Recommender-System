@@ -2,10 +2,8 @@
 
 PlayNext is a lightweight recommender system for video games. It provides a FastAPI backend that serves user authentication, user libraries, game discovery and a content-based recommender built from a scraped games dataset. A small static frontend is included for demos and manual testing.
 
-**Team**
-- Florin-Andrei Ivana
-- Alex-Gabriel Mițoi
-
+**Made by**
+Florin-Andrei Ivana
 ---
 
 **Contents (top-level)**
