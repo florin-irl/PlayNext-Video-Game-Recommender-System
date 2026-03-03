@@ -171,8 +171,7 @@ If you plan to modify the project:
 
 ## Contact
 
-For questions about the code or dataset, contact the team members listed at the top of this file.
-
+For questions about the code or dataset, contact me on:
+[LinkedIn](https://www.linkedin.com/in/florin-andrei-ivana-307776239/)
+[GitHub](https://github.com/florin-irl)
 ---
-
-_This README was generated/updated to include setup, run instructions and developer notes for the PlayNext project._
