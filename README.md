@@ -4,6 +4,29 @@ PlayNext is a lightweight recommender system for video games. It provides a Fast
 
 **Made by**
 Florin-Andrei Ivana
+
+---
+
+## Screenshots
+
+**Onboarding Process that solves the cold start problem**
+<img width="1918" height="870" alt="image" src="https://github.com/user-attachments/assets/ea96d604-cf8b-4d48-989d-f0f407e0bb37" />
+
+**Home Screen - Shows last added games to library, button for adding last recently played game, and menu bar for the different sections**
+<img width="1918" height="856" alt="image" src="https://github.com/user-attachments/assets/c28e8fe4-9c36-4cab-92c9-6da47dddf9d1" />
+
+**My Games - Can manage user library**
+<img width="1918" height="865" alt="image" src="https://github.com/user-attachments/assets/77c9d221-d514-4e24-b7d9-534c3d1b58b8" />
+<img width="1918" height="865" alt="image" src="https://github.com/user-attachments/assets/95663fda-aed9-4359-a56d-a6ca02185099" />
+
+**Recommendations - Show the content based recommendation system, allows users to add games to library by selecting them**
+<img width="1918" height="862" alt="image" src="https://github.com/user-attachments/assets/5cd7adaf-ebf3-4b89-9f6d-97dbf765a179" />
+<img width="1917" height="855" alt="image" src="https://github.com/user-attachments/assets/a390d593-af6d-4de7-b6b8-47a048b494e0" />
+
+**Popular Now - Takes advantage of the already used Twitch API to display actively popular games that are most watched on twitch.tv**
+<img width="1918" height="865" alt="image" src="https://github.com/user-attachments/assets/63d23858-7f6d-4a10-aaf9-068aa3886c90" />
+
+
 ---
 
 **Contents (top-level)**
